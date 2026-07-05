@@ -1,6 +1,5 @@
--- ============================================================
 -- PRIMARY KEYS
--- ============================================================
+
 
 ALTER TABLE dbo.dim_customer
 ADD CONSTRAINT PK_dim_customer
@@ -26,9 +25,7 @@ ALTER TABLE dbo.incidents
 ADD CONSTRAINT PK_incidents
 PRIMARY KEY (IncidentID);
 
--- ============================================================
 -- FOREIGN KEYS
--- ============================================================
 
 ALTER TABLE dbo.fact_orders
 ADD CONSTRAINT FK_fact_orders_dim_customer

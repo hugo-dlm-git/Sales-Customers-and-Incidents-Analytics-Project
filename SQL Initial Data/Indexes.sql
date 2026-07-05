@@ -1,8 +1,6 @@
--- ============================================================
 -- INDEXES
--- ============================================================
 
--- fact_orders
+-- Fact_orders
 CREATE INDEX IX_fact_orders_CustomerID
 ON dbo.fact_orders(CustomerID);
 
@@ -12,14 +10,14 @@ ON dbo.fact_orders(LocationID);
 CREATE INDEX IX_fact_orders_OrderDate
 ON dbo.fact_orders(OrderDate);
 
--- fact_order_details
+-- Fact_order_details
 CREATE INDEX IX_fact_order_details_OrderID
 ON dbo.fact_order_details(OrderID);
 
 CREATE INDEX IX_fact_order_details_ProductID
 ON dbo.fact_order_details(ProductID);
 
--- incidents
+-- Incidents
 CREATE INDEX IX_incidents_OrderID
 ON dbo.incidents(OrderID);
 
