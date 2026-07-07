@@ -7,7 +7,6 @@ The original dataset was provided as a flat CSV file containing commercial and o
 The project simulates a business reporting scenario where a company needs to monitor sales performance, profitability, customer behavior, product performance and operational efficiency. To enrich the analysis, a synthetic incidents table was created to represent operational issues linked to customer orders.
 The workflow covers the full data analytics process: data cleaning, quality checks, relational data modeling, SQL-based validation and business analysis, Power BI data modeling, DAX measure creation and dashboard development.
 
-
 ## Tools and Technologies
 
 The project uses the following tools and technologies:
@@ -27,7 +26,7 @@ The original dataset was a Global Superstore-style CSV file with approximately 5
 ## Repository Structure
 
 
-## End-to-End Workflo
+## End-to-End Workflow
 Raw CSV Dataset ↦ Python Data Cleaning and Quality Checks ↦ Relational Table Generation ↦ SQL Server Import ↦ SQL Data Validation and Business Analysis ↦ Power BI Data Model ↦ DAX Measures and Dashboard ↦ Business Insights
 
 ## Data Cleaning and Preparation with Python
@@ -44,14 +43,81 @@ Python was used to perform the initial cleaning and preparation of the dataset. 
 * Splitting the original flat table into clean relational tables.
 * Exporting the final tables as CSV files.
 
-
 ## Relational Data Model
 
-## 10. SQL Server Analysis
+<img width="977" height="476" alt="image" src="https://github.com/user-attachments/assets/0d79dd56-c5a0-4dd1-acab-a9a853e3cc85" />
+
+The original dataset was provided as a single flat table. During the preparation process, it was transformed into a relational model with dimension and fact tables. The model includes three main dimensions: dim_customer, dim_product and dim_location. These tables store descriptive information about customers, products and geographic areas.The fact tables store the transactional and operational data: fact_orders contains order-level information, fact_order_details contains product-level sales metrics, and incidents contains synthetic operational issues generated with Python.
+
+The main relationships are:
+* dim_customer[CustomerID] → fact_orders[CustomerID]
+* dim_location[LocationID] → fact_orders[LocationID]
+* fact_orders[OrderID] → fact_order_details[OrderID]
+* dim_product[ProductID] → fact_order_details[ProductID]
+* fact_orders[OrderID] → incidents[OrderID]
+
+This structure reduces data duplication, keeps the model consistent and allows sales, customer, product, location and incident analysis within the same Power BI model.
+
+## SQL Server Analysis
+
+SQL Server was used to validate the processed tables, define the relational structure and perform business analysis on top of the cleaned dataset. The SQL work was divided into two stages: database preparation and analytical querying.
+
+Before the analysis, three preparation scripts were created. These scripts helped ensure that the data was complete, consistent and ready for analysis:
+* Data Import Validation: checks that all processed CSV files were correctly imported into SQL Server.
+* Relational Model Constraints: defines primary keys and foreign keys between dimension and fact tables.
+* Performance Indexing Setup: creates indexes on columns commonly used in joins, filters and date-based queries.
+
+Five main SQL queries were developed:
+* Monthly Sales Trend Analysis: analyzes monthly sales, profit, orders, cumulative sales, moving averages and month-over-month variation.
+* Product Sales YoY Analysis: compares product sales by year and identifies whether performance increased, decreased or remained stable.
+* Category Sales Contribution Analysis: calculates how much each product category contributes to total sales.
+* Customer Value Segmentation Analysis: segments customers using sales, profit, order behavior, recency, lifespan and average order value.
+* Location Incident Analysis: analyzes incidents by market, region and country, including incident rate, resolution time and location risk ranking.
+
+<img width="1871" height="828" alt="image" src="https://github.com/user-attachments/assets/fd501611-ecb3-4256-bddf-e0739ea305ff" />
+
+
+The SQL analysis demonstrates practical use of:
+
+* Data import validation.
+* Primary key and foreign key constraints.
+* Index creation for performance optimization.
+* Joins between fact and dimension tables.
+* Aggregations with GROUP BY.
+* Filtering grouped results with HAVING.
+* Conditional logic with CASE WHEN.
+* Common Table Expressions.
+* Subqueries and CTEs.
+* Window functions.
+* Business metrics related to sales, profit, customers, products, locations and incidents.
 
 ## DAX Measures
 
+DAX was used to create dynamic measures for the Power BI dashboard. These measures allow the report to calculate KPIs, ratios, rankings, time intelligence metrics and incident-related indicators.
+The main DAX measures can be grouped into the following areas:
+
+* Core Business KPIs: basic measures were created to summarize the main business performance indicators, including total sales, total profit, total quantity, total orders, total customers, average order value and profit margin. These measures provide the foundation for the dashboard and are reused across multiple visuals.
+
+* Incident and Operational Metrics: additional measures were created to analyze operational performance, including total incidents, resolved incidents, resolved incidents percentage, average resolution days, orders with incidents and percentage of orders affected by incidents. These metrics make it possible to connect sales performance with operational issues.
+
+* Incident Impact on Sales and Profit: some measures were designed to evaluate the business impact of incidents. These include sales and profit generated by orders with incidents, sales and profit from orders without incidents, and profit margin for affected orders. This allows the dashboard to compare normal commercial performance against orders affected by operational problems.
+
 ## Dashboard Design
+
+The Power BI report was designed as a three-page dashboard focused on sales performance, customer and product analysis, and operational incident impact. The dashboard uses KPI cards, slicers, time-based visuals, category breakdowns, customer rankings, maps and incident analysis visuals. The main filters allow users to explore the data by year, market, category, customer segment, incident type, status and priority.
+
+* Executive Overview: the first page provides a high-level summary of the business performance. It includes the main KPIs, such as total sales, total profit, profit margin, average order value, total orders and total incidents. This page also shows monthly sales and profit margin trends, sales distribution by customer segment, sales by category and subcategory, and sales by country. Its purpose is to give a quick overview of commercial performance across time, products, customer segments and geographic markets.
+
+<img width="1301" height="723" alt="image" src="https://github.com/user-attachments/assets/00323a3b-f0b5-4ed9-aaa0-04eb11bfbadd" />
+
+* Sales, Profit and Customers: the second page focuses on customer and product performance. It includes KPIs for sales, profit, margin, order volume and incidents, together with visuals for product performance, category sales over time and top customers by sales. This page helps identify which categories generate the highest sales and margins, how category performance changes over time, and which customers contribute the most to total revenue.
+
+<img width="1302" height="732" alt="image" src="https://github.com/user-attachments/assets/f7fd7cb5-92e8-4b3a-a4c8-8c4c076f51d3" />
+
+* Operations and Incident Impact: the third page focuses on operational incidents and their business impact. It includes incident-related KPIs such as total incidents, resolved incident percentage, average resolution days, orders with incidents, sales from orders with incidents and incident order profit margin. The visuals show incidents over time, incident volume by type and priority, and sales with versus without incidents. This allows operational issues to be analyzed not only as isolated events, but also in relation to sales and profitability.
+
+<img width="1300" height="708" alt="image" src="https://github.com/user-attachments/assets/6fbf4e06-c5c9-4b08-b9bb-657eeb019a07" />
+
 
 ## Key Business Insights
 
@@ -70,8 +136,6 @@ To reproduce this project, follow these steps:
 9. Check the relationships, Power Query transformations and DAX measures.
 10. Refresh the Power BI model if needed.
 11. Review the dashboard pages and business insights.
-
-## Limitations and Future Improvements
 
 ## What This Project Demonstrates
 
