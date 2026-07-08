@@ -24,7 +24,36 @@ The project uses the following tools and technologies:
 The original dataset was a Global Superstore-style CSV file with approximately 50,000 rows. It contained sales, orders, customers, products, locations, shipping and date-related fields in a single flat table.
 
 ## Repository Structure
-
+Sales-Customers-and-Incidents-Analytics-Project/
+├── data/
+│   ├── raw/
+│   │   └── Raw_superstore.csv
+│   └── processed/
+│       ├── dim_customer.csv
+│       ├── dim_product.csv
+│       ├── dim_location.csv
+│       ├── fact_orders.csv
+│       ├── fact_order_details.csv
+│       └── incidents.csv
+├── notebooks/
+│   └── Project_Python.ipynb
+├── powerbi/
+│   └── Project_PowerBI.pbix
+├── sql/
+│   ├── database_setup/
+│   │   ├── Data_Import_Validation.sql
+│   │   ├── Performance_Indexing_Setup.sql
+│   │   └── Relational_Model_Constraints.sql
+│   └── business_queries/
+│       ├── 1.Monthly_Sales_Trend_Analysis.sql
+│       ├── 2.Product_Sales_YoY_Analysis.sql
+│       ├── 3.Category_Sales_Contribution_Analysis.sql
+│       ├── 4.Customer_Value_Segmentation_Analysis.sql
+│       └── 5.Location_Incident_Analysis.sql
+├── .gitignore
+├── LICENSE
+├── README.md
+└── requirements.txt
 
 ## End-to-End Workflow
 Raw CSV Dataset ↦ Python Data Cleaning and Quality Checks ↦ Relational Table Generation ↦ SQL Server Import ↦ SQL Data Validation and Business Analysis ↦ Power BI Data Model ↦ DAX Measures and Dashboard ↦ Business Insights
